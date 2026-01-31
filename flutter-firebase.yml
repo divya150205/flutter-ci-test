@@ -1,4 +1,5 @@
-name: Flutter CI to Firebase
+name: Flutter CI to Firebase 🚀
+
 
 on:
   push:
