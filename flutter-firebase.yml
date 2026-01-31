@@ -1,5 +1,4 @@
-name: Flutter CI to Firebase 
-
+name: Flutter CI to Firebase
 
 on:
   push:
@@ -32,10 +31,14 @@ jobs:
           cd app
           flutter build apk --release
 
+      - name: Create Firebase service account file
+        run: |
+          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > firebase-key.json
+
       - name: Upload APK to Firebase
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
           appId: ${{ secrets.FIREBASE_APP_ID }}
-          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          serviceCredentialsFile: firebase-key.json
           groups: testers
           file: app/build/app/outputs/flutter-apk/app-release.apk
